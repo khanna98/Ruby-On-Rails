@@ -1,0 +1,32 @@
+<h2><%= @post.title %></h2>
+<p><%= @post.body %></p>  
+
+<%= link_to "Edit Post", edit_post_path(@post), :class => 'btn btn-primary' %>
+
+<%= link_to "Delete Post", post_path(@post),
+                            method: :delete,
+                            data: {confirm: 'Are you sure to delte this post ?'},
+                            :class => 'btn btn-danger' %>
+<hr>
+
+<h3> Comments </h3>
+<% @post.comments.each do |comment| %>
+    <div class="jumbotron">
+        <p><%= comment.inspect %> </p>
+    </div>
+<% end %>
+
+<h3> Add Comments </h3>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+  <p>
+    <%= f.label :username %><br>
+    <%= f.text_field(:body, :class => 'form-control') %>
+  </p>
+  <p>
+    <%= f.label :body %><br>
+    <%= f.text_area(:body, :class => 'form-control') %>
+  </p>
+  <p>
+    <%= f.submit ({:class => 'btn btn-primary'})%>
+  </p>
+<% end %>
